@@ -1,26 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Serialization;
 namespace VUV_Projekti
 {
-    class Lokacija
+    public class Lokacija
     {
-        Projekt id_projekta;
-        string znakovi = @"\|!#$%&/()=?»«@£§€{}-;'<>_,";
-        string slova = @"ABCDĐEFGHIJKLMNOPRQRSTUVWXYZabcdefghijklmnoprqđrstuvwxyz";
-        public Lokacija(string _id_lokacije,string _adresa, string _postanskibroj, string _grad, string _latituda, string _longituda)
-        {
-            this.id_lokacije = _id_lokacije;
-            this.Adresa = _adresa;
-            this.Postanskibroj = _postanskibroj;
-            this.Grad = _grad;
-            this.Latituda = _latituda;
-            this.Longituda = _longituda;
 
-
-        }
-        private string _id_lokacije;
-        public string id_lokacije
+        [XmlAttribute]
+        public string Id
         {
             get { return _id_lokacije; }
             set
@@ -37,6 +25,13 @@ namespace VUV_Projekti
                         if (value.Contains(slovo))
                         {
                             throw new Exception("ID ne moze sadrzavati specijalna slova");
+                        }
+                    }
+                    foreach (char slovo in slova)
+                    {
+                        if (value.Contains(slovo))
+                        {
+                            throw new Exception("ID ne smije sadrzavati slovo");
                         }
                     }
                     int stringint;
@@ -62,36 +57,37 @@ namespace VUV_Projekti
                 }
             }
         }
-        private string _adresa;
+        string znakovi = @"\|!#$%&/=?»«@£§€{};<>_";
+        string slova = @"ABCDEFGHIJKLMNOPRQRSTUVWXYZabcdefghijklmnoprqrstuvwxyz";
+        private string _id_lokacije;
+
+
+        [XmlAttribute]
         public string Adresa
         {
             get { return _adresa; }
             set
             {
-                    try
+                try
+                {
+                    if (value.Length <= 0)
                     {
-                        if (value.Length <= 0)
-                        {
-                            throw new Exception("Adresa nije dobro postavljena");
+                        throw new Exception("Adresa nije dobro postavljena");
 
-                        }
-                    
-                        foreach (char slovo in znakovi)
-                        {
-                            if (value.Contains(slovo))
-                            {
-                                throw new Exception("Adresa ne moze sadrzavati specijalna slova");
-                            }
-                        }
-                        _adresa = value;
                     }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
+
+                   
+                    _adresa = value;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
         }
-        private string _postanskibroj;
+        private string _adresa;
+
+        [XmlAttribute]
         public string Postanskibroj
         {
             get { return _postanskibroj; }
@@ -112,6 +108,14 @@ namespace VUV_Projekti
                             throw new Exception("Postanski broj ne moze sadrzavati specijalna slova");
                         }
                     }
+                    foreach (char slovo in slova)
+                    {
+                        if (value.Contains(slovo))
+                        {
+                            throw new Exception("ID ne smije sadrzavati slovo");
+                        }
+                    }
+
                     _postanskibroj = value;
                 }
                 catch (Exception e)
@@ -120,45 +124,18 @@ namespace VUV_Projekti
                 }
             }
         }
-        private string _grad;
+
+        private string _postanskibroj;
+
+
+        [XmlAttribute]
         public string Grad
         {
-            get { return _grad; }
-            set
-            {
-                try
-                {
-                    if (value.Length <= 0)
-                    {
-                        throw new Exception("Naziv Grada nije dobro postavljen");
-
-                    }
-
-                    foreach (char slovo in znakovi)
-                    {
-                        if (value.Contains(slovo))
-                        {
-                            throw new Exception("Naziv Grada ne moze sadrzavati specijalna slova");
-                        }
-                    }
-                    foreach (char slovo in value)
-                    {
-                        int broj;
-                        bool uspjesno;
-                        if (uspjesno = int.TryParse(slovo.ToString(), out broj))
-                        {
-                            throw new Exception("Naziv Grada ne moze sadrzavati broj");
-                        }
-                    }
-                    _grad = value;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
-            }
+            get; set;
         }
-        private string _latituda;
+   
+
+        [XmlAttribute]
         public string Latituda
         {
             get { return _latituda; }
@@ -194,7 +171,9 @@ namespace VUV_Projekti
                 }
             }
         }
-        private string _longituda;
+        private string _latituda;
+
+        [XmlAttribute]
         public string Longituda
         {
             get { return _longituda; }
@@ -229,6 +208,9 @@ namespace VUV_Projekti
                     Console.WriteLine(e.Message);
                 }
             }
-        }   
+        }
+    
+
+    private string _longituda;
     }
 }

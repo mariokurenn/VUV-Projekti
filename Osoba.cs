@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Serialization;
 namespace VUV_Projekti
 {
-    abstract class Osoba
+    public abstract class Osoba
     {
-        private string id_clana;
-        public string ID_clana
+        [XmlAttribute]
+        public string ID
         {
-            get { return id_clana; }
+            get { return _id; }
             set
             {
                 try
@@ -17,7 +18,7 @@ namespace VUV_Projekti
                     {
                         throw new Exception("ID nije dobro postavljen");
                     }
-                 
+
                     foreach (char slovo in znakovi)
                     {
                         if (value.Contains(slovo))
@@ -25,11 +26,18 @@ namespace VUV_Projekti
                             throw new Exception("ID ne moze sadrzavati specijalna slova");
                         }
                     }
-                    int stringint;
-                   try
+                    foreach (char slovo in slova)
                     {
-                         bool uspjesno = int.TryParse(value, out stringint);
-                        if(stringint < 0)
+                        if (value.Contains(slovo))
+                        {
+                            throw new Exception("ID ne smije sadrzavati slovo");
+                        }
+                    }
+                    int stringint;
+                    try
+                    {
+                        bool uspjesno = int.TryParse(value, out stringint);
+                        if (stringint < 0)
                         {
                             throw new Exception("ID ne moze biti manji od 0");
                         }
@@ -39,8 +47,8 @@ namespace VUV_Projekti
 
                         Console.WriteLine(e.Message);
                     }
-                   
-                    id_clana = value;
+
+                    _id = value;
                 }
                 catch (Exception e)
                 {
@@ -48,12 +56,14 @@ namespace VUV_Projekti
                 }
             }
         }
-        
-        private string _ime;
+        private string _id;
+        string znakovi = @"\|!#$%&/()=?»«@£§€{}.-;'<>_,";
+        string slova = @"ABCDĐEFGHIJKLMNOPRQRSTUVWXYZabcdefghijklmnoprqđrstuvwxyz";
+        [XmlAttribute]
         public string Ime
         {
-             get { return _ime; }
-             set
+            get { return _ime; }
+            set
             {
                 try
                 {
@@ -70,7 +80,7 @@ namespace VUV_Projekti
                             throw new Exception("Ime ne moze sadrzavati broj");
                         }
                     }
-                    foreach(char slovo in znakovi)
+                    foreach (char slovo in znakovi)
                     {
                         if (value.Contains(slovo))
                         {
@@ -85,11 +95,13 @@ namespace VUV_Projekti
                 }
             }
         }
-        private string _prezime;
-        public string Prezime {
+        private string _ime;
+        [XmlAttribute]
+        public string Prezime
+        {
             get { return _prezime; }
             set
-            { 
+            {
                 try
                 {
                     if (value.Length <= 0)
@@ -121,15 +133,16 @@ namespace VUV_Projekti
                 }
             }
         }
-        private string _oib;
+        private string _prezime;
+        [XmlAttribute]
         public string OIB
         {
             get { return _oib; }
-            private set
+            set
             {
                 try
                 {
-                    if(value.Length != 11)
+                    if (value.Length != 11)
                     {
                         throw new Exception("OIB nije dobro postavljen");
                     }
@@ -154,17 +167,9 @@ namespace VUV_Projekti
 
                     Console.WriteLine(e.Message);
                 }
-            } 
+            }
         }
-        private string Status{ get; set; }
-        public Osoba(string id_clana, string _ime ,string _prezime, string _oib)
-        {
-           ID_clana = id_clana;
-           Ime = _ime;
-           Prezime = _prezime;
-           OIB = _oib; 
-        }
-        string znakovi = @"\|!#$%&/()=?»«@£§€{}.-;'<>_,";
-        string slova = @"ABCDĐEFGHIJKLMNOPRQRSTUVWXYZabcdefghijklmnoprqđrstuvwxyz";
+        private string _oib;
+
     }
 }

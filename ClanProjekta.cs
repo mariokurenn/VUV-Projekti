@@ -3,46 +3,59 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Xml;
+using System.Xml.Serialization;
 namespace VUV_Projekti
 {
-    class ClanProjekta : Osoba
+    public class ClanProjekta : Osoba, IValidate
     {
-        Projekt p;
+        public Projekt Projekt;
 
-
-        private bool _voditelj;
-
-
+        [XmlAttribute]
 
         public bool Voditelj
         {
             get { return _voditelj; }
+
+
             set
             {
-                try
-                {
-                    if (Voditelj)
-                    {
-
-                    }
+            
+                
                     _voditelj = value;
-                }
-                catch (Exception e)
-                {
-
-                    Console.WriteLine(e.Message);
-                }
+                
             }
         }
-        
 
-        public ClanProjekta(string id_clana, string _ime, string _prezime, string _oib, bool _voditelj) : base(id_clana, _ime, _prezime, _oib)
+
+        private bool _voditelj;
+
+        [XmlAttribute]
+        public bool Deleted {
+            
+          get { return _deleted; }
+          set
+              {
+
+                _deleted = value;
+                }
+
+
+            }
+
+        private bool _deleted;
+        public bool Validate()
         {
-         
-            this.Voditelj = _voditelj;
-       
+            if (this.ID.Length == 0)
+            {
+                Console.WriteLine("ID ne smije biti prazan");
+                return false;
+            }
+            if (this.Ime.Length == 0)
+            {
+                Console.WriteLine("Ime ne smije biti prazno");
+                return false;
+            }
+            return true;
         }
-
-       
-}
+    }
 }

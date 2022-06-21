@@ -20,7 +20,7 @@ namespace VUV_Projekti
             {
                 case 0:
                     Environment.Exit(0);
-               
+
                     break;
                 case 1:
                     string ispis = "Vracanje u glavni izbornik.......";
@@ -28,8 +28,8 @@ namespace VUV_Projekti
                     Console.WriteLine(ispis, "{0}", Console.ForegroundColor = ConsoleColor.Red);
                     Thread.Sleep(500);
                     Console.Clear();
-                    PokreniIzbornik();       
-                    break;          
+                    PokreniIzbornik();
+                    break;
             }
             Console.ReadKey(true);
             Environment.Exit(0);
@@ -37,50 +37,52 @@ namespace VUV_Projekti
         public static void Administracija()
         {
             string prompt = "Odaberite neke od stvari sa menija";
-            string[] opcije = { "1. Ispisi listu projekata", "2. Dodavanje projekata", "3. Azuriranje projekata", "4. Lista aktivnosti", "5. Dodavanje aktivnosti", "6. Lista clanova projekta", "7. Dodavnaje clana", "8. Brisanje clana", "9. Dodavanje lokacije" };
+            string[] opcije = { "1. Ispisi listu projekata", "2. Kreiranje projekta", "3. Azuriranje projekata", "4. Lista aktivnosti", "4.1. Ispis aktivnosti iz projekta",
+                "5. Dodavanje aktivnosti", "6. Lista clanova projekta", "7. Dodavnaje clana", "8. Brisanje clana", "9. Dodaj Lokaciju", "10. Ispis svih Lokacija","11. Resetiraj podatke"};
             Izbornik izlaz = new Izbornik(prompt, opcije);
             int OdabraniIndex = izlaz.Pokreni();
             switch (OdabraniIndex)
             {
                 case 0:
-
-                    VUV.OcitajPodatkeClanova();
-
-
+                    VUV.IspisListeProjekata();
                     break;
                 case 1:
-
-                    VUV.NoviProjekt();
-
+                    VUV.KreirajProjekt();
                     break;
                 case 2:
-                   
-
+                    VUV.AzurirajProjekt2();
                     break;
                 case 3:
-                    VUV.listaAktivnosti();
+                    VUV.IspisSvihAktivnosti();
                     break;
-
                 case 4:
-
+                    VUV.IspisAktivnostiProjekta();
                     break;
 
                 case 5:
+                    VUV.DodajAktivnost();
                     break;
                 case 6:
-                    VUV.DodajClana(VUV.listaClanova());
+                    VUV.ListaClanova2();
                     break;
                 case 7:
-                    
-                break;
+                    VUV.DodavanjeClana2();
+                    break;
 
                 case 8:
-
-                    VUV.DodajLokaciju(VUV.listaLokacija());
-
+                    VUV.BrisanjeClana();
+                    break;
+    
+                case 9:
+                    VUV.KreirajLokaciju();
+                    break;
+                case 10:
+                    VUV.IspisLokacija();
+                    break;
+                case 11:
+                    VUV.ResetirajPodatke();
                     break;
             }
-
             Console.ReadKey(true);
             Environment.Exit(0);
         }
@@ -91,9 +93,22 @@ namespace VUV_Projekti
             PokreniIzbornik();
 
         }
+        public static void Exit()
+        {
+            string prompt = "";
+            string[] opcije = { "Nazad" };
+            Izbornik izlaz = new Izbornik(prompt, opcije);
+            int OdabraniIndex = izlaz.Pokreni();
+            switch (OdabraniIndex)
+            {
+                case 0:
+                    Administracija();
+                    break;
+            }
+        }
         public static void PokreniIzbornik()
         {
-        
+
             string prompt = "Za kretanje kroz izbornik koristite strijelice gore ili dolje ovisno o odabiru, a za odabir opcije korisite Enter";
             string[] opcije = { "Pokreni", "Izlaz" };
             Izbornik i1 = new Izbornik(prompt, opcije);
@@ -102,20 +117,22 @@ namespace VUV_Projekti
             {
                 case 0:
                     Pokreni();
+             
                     break;
                 case 1:
-                   
+
                     break;
                 case 2:
                     IzlazIzPrograma();
                     break;
             }
         }
-        static void Main(string[] args)
-        {
-            Console.Title = "VUV Projekti";
-            Console.SetCursorPosition(0, 0);
-            for (int i = 0; i<5; i++)
+      
+            static void Main(string[] args)
+            {
+                Console.Title = "VUV Projekti";
+                Console.SetCursorPosition(0, 0);
+            for (int i = 0; i < 5; i++)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(@"
@@ -173,6 +190,7 @@ namespace VUV_Projekti
                 Console.ResetColor();
             }
             PokreniIzbornik();
+            }
         }
     }
-}
+

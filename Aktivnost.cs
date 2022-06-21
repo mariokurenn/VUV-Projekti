@@ -1,50 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace VUV_Projekti
 {
     
-    class Aktivnost
+     public class Aktivnost
     {
-         public List<ClanProjekta> clanp;
+        [XmlArrayAttribute("ClanoviProjekta")]
+        public List<ClanProjekta> ClanoviProjekta { get; set; } = new List<ClanProjekta>();
 
-        
-        public Aktivnost(string _id_aktivnosti, string _naziv, string _opis, string _vrijeme, string id_lokacije, List<ClanProjekta> clanp)
-        {
-            this.id_aktivnosti = _id_aktivnosti;
-            this.Naziv = _naziv;
-            this.Opis = _opis;
-            this.Vrijeme = _vrijeme;
-            this.id_lokacije = _id_lokacije;
-            this.clanp = clanp;
-           
-        }
 
-        string znakovi = @"\|!#$%&/()=?»«@£§€{}.-;'<>_,";
-        string slova = @"ABCDĐEFGHIJKLMNOPRQRSTUVWXYZabcdefghijklmnoprqđrstuvwxyz";
-        
-
-        private string _id_lokacije;
-        public string id_lokacije
-        {
-            get { return _id_lokacije; }
-            set
-            {
-                try
-                {
-
-                  
-                    _id_lokacije = value;
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
-            }
-        }
-        private string _id_aktivnosti;
-        public string id_aktivnosti
+        [XmlAttribute]
+        public string Id
         {
             get { return _id_aktivnosti; }
             set
@@ -71,8 +40,8 @@ namespace VUV_Projekti
                         }
                     }
                     int stringint;
-                    
-                        bool uspjesno = int.TryParse(value, out stringint);
+
+                    bool uspjesno = int.TryParse(value, out stringint);
                     if (stringint < 0)
                     {
                         throw new Exception("ID ne moze biti manji od 0");
@@ -86,9 +55,11 @@ namespace VUV_Projekti
             }
         }
 
+        string znakovi = @"\|!#$%&/=?»«@£§€{};'<>_";
+        string slova = @"ABCDĐEFGHIJKLMNOPRQRSTUVWXYZabcdefghijklmnoprqđrstuvwxyz";
+        private string _id_aktivnosti;
 
-
-        private string _naziv;
+        [XmlAttribute]
         public string Naziv
         {
             get { return _naziv; }
@@ -101,15 +72,7 @@ namespace VUV_Projekti
                         throw new Exception("Naziv nije dobro postavljen");
 
                     }
-                    foreach (char slovo in value)
-                    {
-                        int broj;
-                        bool uspjesno;
-                        if (uspjesno = int.TryParse(slovo.ToString(), out broj))
-                        {
-                            throw new Exception("Naziv ne moze sadrzavati broj");
-                        }
-                    }
+                  
                     foreach (char slovo in znakovi)
                     {
                         if (value.Contains(slovo))
@@ -125,16 +88,21 @@ namespace VUV_Projekti
                 }
             }
         }
-        private string _opis;
+        private string _naziv;
+
+        [XmlAttribute]
         public string Opis
         {
             get { return _opis; }
             set { _opis = value; }
         }
-        private string _vrijeme;
-        public string Vrijeme 
-        { 
-          get { return _vrijeme; }
+
+        private string _opis;
+
+        [XmlAttribute]
+        public string Vrijeme
+        {
+            get { return _vrijeme; }
             set
             {
                 try
@@ -156,14 +124,13 @@ namespace VUV_Projekti
                 catch (Exception e)
                 {
 
-                    Console.WriteLine(e.Message); 
+                    Console.WriteLine(e.Message);
                 }
-            } 
+            }
         }
 
-        List<ClanProjekta> ClanoviAktivnost;
-        Projekt p;
-        Lokacija l;
-        
+
+        private string _vrijeme;
+
     }
 }

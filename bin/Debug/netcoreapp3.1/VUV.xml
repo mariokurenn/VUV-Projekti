@@ -86,7 +86,6 @@
         <ClanProjekta ID="10" Ime="Vito" Prezime="Rukavina" OIB="90144583083" Voditelj="false" Deleted="false" />
         <ClanProjekta ID="4" Ime="Vedran" Prezime="Jerkovic" OIB="92029545561" Voditelj="true" Deleted="false" />
         <ClanProjekta ID="8" Ime="Zdravko" Prezime="Babic" OIB="86809339209" Voditelj="false" Deleted="false" />
-        <ClanProjekta ID="11" Ime="test" Prezime="test" OIB="20141111111" Voditelj="false" Deleted="false" />
       </ClanProjekta>
       <ListaVoditelja>
         <ClanProjekta ID="2" Ime="Ivan" Prezime="Peric" OIB="85739312800" Voditelj="true" Deleted="false" />
@@ -113,7 +112,6 @@
     <ClanProjekta ID="8" Ime="Zdravko" Prezime="Babic" OIB="86809339209" Voditelj="false" Deleted="false" />
     <ClanProjekta ID="9" Ime="Hamzo" Prezime="Cuturic" OIB="68689538295" Voditelj="false" Deleted="false" />
     <ClanProjekta ID="10" Ime="Vito" Prezime="Rukavina" OIB="90144583083" Voditelj="false" Deleted="false" />
-    <ClanProjekta ID="11" Ime="test" Prezime="test" OIB="20141111111" Voditelj="false" Deleted="false" />
   </ClanoviProjekta>
   <Lokacije>
     <Lokacija Id="1" Adresa="Ulica Matije Gupca 23" Postanskibroj="33000" Grad="Virovitica" Latituda="17.38768898218219" Longituda="45.84193993175785" />
